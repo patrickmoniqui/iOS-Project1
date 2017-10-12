@@ -8,9 +8,14 @@
 
 import UIKit
 
-class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var tableView: UITableView!
+    
+    var isSearching = false
     var vehicules : [Vehicule] = [Vehicule]()
+    var filteredArray : [Vehicule] = [Vehicule]()
     let vehiculeDao = VehiculeDao()
     
     override func viewDidLoad() {
@@ -28,6 +33,8 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         vehiculeDao.AddVehicule(vehicule: vec2)
         vehiculeDao.AddVehicule(vehicule: vec3)
         vehicules = vehiculeDao.GetVehiculeList()
+        
+        filteredArray = vehicules
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,21 +42,21 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
         // Dispose of any resources that can be recreated.
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return vehicules.count
-    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return filteredArray.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
-        cell.textLabel?.text = String(vehicules[indexPath.row].annee) + " " + vehicules[indexPath.row].marque + " " + vehicules[indexPath.row].modele
+        cell.textLabel?.text = String(filteredArray[indexPath.row].annee) + " " + filteredArray[indexPath.row].marque + " " + filteredArray[indexPath.row].modele
         cell.accessoryType = .disclosureIndicator
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedVehicule = vehicules[indexPath.row]
+        let selectedVehicule = filteredArray[indexPath.row]
         performSegue(withIdentifier: "VehiculeDetailSegue", sender: selectedVehicule)
     }
     
@@ -85,6 +92,30 @@ class FirstViewController: UIViewController, UITableViewDelegate, UITableViewDat
             break
 
         }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        isSearching = true
+        
+        if(searchText == "")
+        {
+            filteredArray = vehicules
+        }
+        else
+        {
+            filteredArray  = vehicules.filter() {
+                let marque = $0.marque.contains(searchText) == true
+                let modele = $0.modele.contains(searchText) == true
+                let annee = $0.annee == Int32(searchText)
+                return marque || modele || annee
+            }
+        }
+        
+        
+        tableView.reloadData()
+        
+        isSearching = false
+        
     }
 }
 
