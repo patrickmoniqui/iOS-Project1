@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Vehicule" representedClassName=".VehiculeEntity" syncable="YES">
+        <attribute name="annee" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="couleurEx" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="couleurInt" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="marque" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modele" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="nbCylindre" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="nbPortiere" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="odometre" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="options" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="typeTransmission" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Vehicule" positionX="-63" positionY="-18" width="128" height="193"/>
+    </elements>
+</model>
